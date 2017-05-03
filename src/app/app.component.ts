@@ -52,6 +52,10 @@ const HEROES: Hero[] = [
   // * parentheses around "click" indicate that the li element's "click" event
   //   is the target.
   // * double curly braces are the syntax for "interpolation binding"
+  // * () indicates one way binding from user to program (from element in 
+  //   markup to a component on the backend.) This is called event binding
+  // * [] indicates one way binding from program to user (from component to
+  //   an element in markup) - this is called property binding.
   // * that fun little [()] indicates two-way binding.
   // * ngModel won't work unless you opt-in to using the module "FormsModule".
   //   this is done in app.module.ts
@@ -59,11 +63,13 @@ const HEROES: Hero[] = [
     <h1>{{title}}</h1>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
+      <li *ngFor="let hero of heroes"
+          (click)="onSelect(hero)"
+          [class.selected]="hero === selectedHero">
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
-    <div *ngIf="selectedHero">
+    <div *ngIf="selectedHero"> <!-- only shows if if statement is truthy -->
       <h2>{{selectedHero.name}} details:</h2>
       <div><label>id: </label>{{selectedHero.id}}</div>
       <div>

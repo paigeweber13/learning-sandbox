@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-
-//creating a class for a hero
-export class Hero {
-  //seems like this is how we declare the types of variables in typescript
-  id: number;
-  name: string;
-}
+import { Hero } from './hero';
 
 // * array of heroes. Commented names are names of heroes from tutorial.
 // * array is names HEROES (is all caps something they do with const?)
@@ -69,14 +63,6 @@ const HEROES: Hero[] = [
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
-    <div *ngIf="selectedHero"> <!-- only shows if if statement is truthy -->
-      <h2>{{selectedHero.name}} details:</h2>
-      <div><label>id: </label>{{selectedHero.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]=selectedHero.name placeholder="Hero Name">
-      </div>
-    </div>
     `,
 
   styles: [`

@@ -1,26 +1,7 @@
 import { Component } from '@angular/core';
 import { Hero } from './hero';
-
-// * array of heroes. Commented names are names of heroes from tutorial.
-// * array is names HEROES (is all caps something they do with const?)
-//   and this array is of type Hero.
-// * this is separate from a class implementation (I guess that's what export
-//   class means) because we'll eventually take these from a data source.
-const HEROES: Hero[] = [
-  { id: 1, name: 'Aphrodite' }, //Windstorm
-  { id: 2, name: 'Hephaestos' }, //Mr. Nice
-  { id: 3, name: 'Eros' },      //Narco
-  { id: 4, name: 'Dionysos' },  //Bombasto
-  { id: 5, name: 'Achilles' },  //Celeritas
-  { id: 6, name: 'Athena' },    //Magneta
-  { id: 7, name: 'Poseidon' },  //RubberMan
-  { id: 8, name: 'Artemis' },   //Dynama
-  { id: 9, name: 'Apollo' },    //Dr IQ
-  { id: 10, name: 'Heracles' }, //Magma
-  { id: 11, name: 'Hermes' },   //Tornado
-  { id: 12, name: 'Hera' },
-  { id: 13, name: 'Zeus' }
-]
+import { HeroService } from './hero.service';
+import { OnInit } from '@angular/core';
 
 //so this is called a decorator?
 @Component({
@@ -63,6 +44,7 @@ const HEROES: Hero[] = [
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
+    <hero-detail [hero]="selectedHero"></hero-detail>
     `,
 
   styles: [`
@@ -113,26 +95,52 @@ const HEROES: Hero[] = [
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
     }
-  `]
+  `],
+  //this array tells Angular to make a fresh instance of the HeroService when
+  //it creates AppComponent. AppComponent and its children can use this service
+  providers: [HeroService]
 })
 
 //adding properties here is adding properties to the AppComponent
 export class AppComponent {
   title = 'Tour of Heroes';
-  // * type of heroes isn't declared because TS infers it from
-  //   the array.
-  // * below I'm saying that the component's property 'hero' is declared as
-  //   being of type Hero, then initializing it with some values for id and
-  //   name
-  heroes = HEROES;
+  heroes: Hero[];
   //we're just declaring the type of selectedHero here, right?
   selectedHero: Hero;
+
+  //all this does is defines a heroSevice property (which is private) and
+  //identifies it as an injection site for HeroService. Now Angular knows
+  //to provide an instance of the HeroService when it creates AppComponent
+  // *** however, it doesn't know HOW to provide this service until ***
+  // *** you add HeroService to the providers array in the          ***
+  // *** @Component call                                            ***
+  constructor(private heroService: HeroService) {}
+  //this is called a lifecycle hook. For more info, see
+  //https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html
+  ngOnInit(): void {
+    this.getHeroes();
+  }
 
   onSelect(hero: Hero): void {
     //hero comes from the parameter passed to onSelect
     this.selectedHero = hero;
   }
 
+  getHeroes(): void {
+    //arrow thing means that we have an anonymous function with a parameter
+    //"heroes", and when it is called it returns "this.heroes = heroes"
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+  //-------deprecated stuff kept because learning:-------
+
+  // * type of heroes isn't declared because TS infers it from
+  //   the array.
+  //heroes = HEROES;
+
+  // * below I'm saying that the component's property 'hero' is declared as
+  //   being of type Hero, then initializing it with some values for id and
+  //   name
   // hero: Hero = {
   //   id: 1,
   //   name: 'Aphrodite'

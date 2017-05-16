@@ -24,6 +24,10 @@ let Routes: Object[] = [
     path: 'heroes',
     component: HeroesComponent
   },
+  {
+    path: 'detail/:id',
+    component: HeroDetailComponent
+  }
 ];
 
 @NgModule({

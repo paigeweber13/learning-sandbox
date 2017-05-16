@@ -15,6 +15,18 @@ export class HeroService {
     getHeroes(): Promise<Hero[]> {
         return Promise.resolve(HEROES);
     };
+    getHero(id: number): Promise<Hero> {
+        return this.getHeroes()
+            .then(heroes => heroes.find(
+                hero => hero.id ===id));
+
+        //Javascript equivalent:
+        /*
+        return this.getHeroes()
+            .then(function (heroes) { return heroes.find(
+                function (hero) { return hero.id === id; }); });
+        */
+    };
     getHeroesSlowly(): Promise<Hero[]>{
         return new Promise(resolve => {
             //Simulate server lateny with 2 second delay

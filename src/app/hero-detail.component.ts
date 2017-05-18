@@ -11,16 +11,7 @@ import { HeroService } from './hero.service';
 @Component({
     //selector will be used to identify this component in parent templates
     selector:'hero-detail',
-    template: `
-    <div *ngIf="hero"> <!-- only shows if ngIf statement is truthy -->
-      <h2>{{hero.name}} details:</h2>
-      <div><label>id: </label>{{hero.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]=hero.name placeholder="Hero Name">
-      </div>
-    </div>
-    `
+    templateUrl: './hero-detail.component.html'
 })
 //always export the component class because you'll always import it elsewhere.
 export class HeroDetailComponent implements OnInit {
@@ -36,7 +27,11 @@ export class HeroDetailComponent implements OnInit {
     //route.params is an observable.
     ngOnInit(): void {
       this.route.params
-      .switchMap((params: Params) => this.heroService.getHero(+params['id']))
-      .subscribe(hero => this.hero = hero);
+        .switchMap((params: Params) => this.heroService.getHero(+params['id']))
+        .subscribe(hero => this.hero = hero);
+    }
+
+    goBack(): void {
+      this.location.back();
     }
 }

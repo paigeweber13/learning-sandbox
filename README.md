@@ -1,4 +1,5 @@
-=To start:=
+To start:
+0. Ensure nodeJS and NPM are installed
 1. clone
 2. run "npm install" in the root directory
 3. run "npm start" in the root directory

@@ -8,10 +8,10 @@ import { HEROES } from './mock-heroes';
 //   change. Thus, this is for future-proofing.
 @Injectable()
 export class HeroService {
-    //This is a promise. A promise promises to call back when the results are
-    //ready. You describe the work the asynchronus service will do and give it
-    //a callback function. The service does the work and then calls the
-    //function with the results or an error.
+    // This is a promise. A promise promises to call back when the results are
+    // ready. You describe the work the asynchronus service will do and give it
+    // a callback function. The service does the work and then calls the
+    // function with the results or an error.
     getHeroes(): Promise<Hero[]> {
         return Promise.resolve(HEROES);
     };
@@ -26,7 +26,7 @@ export class HeroService {
             .then(heroes => heroes.find(
                 hero => hero.id ===id));
 
-        //Javascript equivalent:
+        // Javascript equivalent:
         /*
         return this.getHeroes()
             .then(function (heroes) { return heroes.find(

@@ -1,4 +1,5 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
         // * array of heroes. Commented names are names of heroes from tutorial.

@@ -12,6 +12,7 @@ import { AppComponent }  from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { HeroesComponent } from './heroes.component';
+import { HeroSearchComponent } from './hero-search.component';
 import { HeroService } from './hero.service';
 import { HeroDetailComponent } from './hero-detail.component';
 
@@ -29,6 +30,7 @@ import { HeroDetailComponent } from './hero-detail.component';
     AppComponent,
     DashboardComponent,
     HeroesComponent,
+    HeroSearchComponent,
     HeroDetailComponent
     ],
   // put stuff in providers array when you need it in every other view.

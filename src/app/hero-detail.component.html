@@ -5,6 +5,7 @@
         <label>name: </label>
         <input [(ngModel)]=hero.name placeholder="Hero Name">
     </div>
+    <img src='{{hero.imgFullPath}}'><br>
     <button (click)="goBack()">Back</button>
     <button (click)="save()">Save</button>
 </div>

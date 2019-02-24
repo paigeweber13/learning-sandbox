@@ -1,0 +1,3 @@
+# ignoring mnist data files
+*ubyte
+*.gz

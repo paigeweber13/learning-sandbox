@@ -98,12 +98,33 @@ def main():
     """
     if(len(sys.argv)) < 2:
         print('usage:', sys.argv[0], 'password-to-guess')
-    input_password = sys.argv[1]
-    current_population = generateFirstPopulation(100, input_password)
+    correct_password = sys.argv[1]
+    current_population = generateFirstPopulation(100, correct_password)
 
-    most_fit_guess = ''
-    while(most_fit_guess != input_password):
-        pass
+    most_fit_individual = ''
+    generation = 1
+    while(most_fit_individual != correct_password):
+        sorted_population = []
+        for individual in current_population:
+            sorted_population.append((individual, fitness(correct_password, 
+                individual)))
+        # sorted population is a tuple of (string, int) where string is the
+        # guessed word and int is the fitness score
+        sorted_population.sort(key=lambda tup: tup[1])
+        most_fit_individual = sorted_population[0][0]
+        print('Generation:', str(generation).zfill(4), 'most fit individual:',
+            most_fit_individual)
+
+        generation += 1
+        # so we have 50 survivors, so each couple will produce 4 children.
+        # survivors is just the string.
+        survivors = selectFromPopulation(sorted_population, 35, 15)
+        for i in range(len(survivors) * 4):
+            first_index = 2*int(i/4)
+            parent_1 = survivors[first_index]
+            parent_2 = survivors[first_index+1]
+            current_population[i] = createChild
+            pass
 
 if __name__ == '__main__':
     main()

@@ -115,9 +115,9 @@ def main():
 
     current_population = generateFirstPopulation(population_size, 
         correct_password)
-    most_fit_individual = ''
+    most_fit_individual = ('', 0.0)
     generation = 1
-    while(most_fit_individual != correct_password):
+    while(most_fit_individual[0] != correct_password):
         if debug:
             print('current populations:', current_population)
         sorted_population = computePerfPopulation(current_population,

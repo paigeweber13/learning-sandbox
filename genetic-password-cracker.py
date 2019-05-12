@@ -74,7 +74,7 @@ def createChild(individual1, individual2):
 
 def createChildren(breeders, number_of_child):
     nextPopulation = []
-    for i in range(len(breeders)/2):
+    for i in range(int(len(breeders)/2)):
         for j in range(number_of_child):
             nextPopulation.append(createChild(breeders[i], breeders[len(breeders) -1 -i]))
     return nextPopulation
@@ -98,43 +98,46 @@ def main():
     """
     runs until correct password is guessed
     """
-    if(len(sys.argv)) < 2:
-        print('usage:', sys.argv[0], 'password-to-guess')
+    if len(sys.argv) < 3:
+        print('usage:', sys.argv[0], 'password-to-guess', 'population-size',
+            '[debug]')
+        return
     correct_password = sys.argv[1]
-    current_population = generateFirstPopulation(100, correct_password)
+    population_size = int(sys.argv[2])
+    if population_size % 4 != 0:
+        print('population_size must be divisible by 4!')
+        return
 
+    debug = False
+    if len(sys.argv) > 3 and sys.argv[3] == 'debug':
+        debug = True
+
+    current_population = generateFirstPopulation(population_size, 
+        correct_password)
     most_fit_individual = ''
     generation = 1
     while(most_fit_individual != correct_password):
+        if debug:
+            print('current populations:', current_population)
         sorted_population = computePerfPopulation(current_population,
             correct_password)
+        if debug:
+            print('sorted populations:', sorted_population)
         most_fit_individual = sorted_population[0]
         print('Generation:', generation, 'Most fit individual:', 
-            most_fit_individual)
-        survivors = selectFromPopulation(sorted_population, 35, 15)
+            most_fit_individual[0], 'Score:', most_fit_individual[1])
+        survivors = selectFromPopulation(sorted_population, 
+            int(0.35*population_size), int(0.15*population_size)+1)
+        if debug:
+            print('survivors:', survivors)
         next_population = createChildren(survivors, 4)
-        next_population = mutatePopulation(next_population, 50)
-        # sorted_population = []
-        # for individual in current_population:
-        #     sorted_population.append((individual, fitness(correct_password, 
-        #         individual)))
-        # # sorted population is a tuple of (string, int) where string is the
-        # # guessed word and int is the fitness score
-        # sorted_population.sort(key=lambda tup: tup[1])
-        # most_fit_individual = sorted_population[0][0]
-        # print('Generation:', str(generation).zfill(4), 'most fit individual:',
-        #     most_fit_individual)
-
-        # generation += 1
-        # # so we have 50 survivors, so each couple will produce 4 children.
-        # # survivors is just the string.
-        # survivors = selectFromPopulation(sorted_population, 35, 15)
-        # current_population = []
-        # for i in range(len(survivors), 2):
-        #     for j in range(4):
-        #         parent_1 = survivors[i]
-        #         parent_2 = survivors[i+1]
-        #         current_population.append(createChild(parent_1, parent_2))
+        if debug:
+            print('next population after creating children:', next_population)
+        next_population = mutatePopulation(next_population, population_size/2)
+        if debug:
+            print('next population after mutation:', next_population)
+        current_population = next_population
+        generation += 1
     print('Password has been found!', 'Input password:', correct_password, 
         'Generated password:', most_fit_individual)
 

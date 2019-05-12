@@ -106,6 +106,14 @@ def main():
     most_fit_individual = ''
     generation = 1
     while(most_fit_individual != correct_password):
+        sorted_population = computePerfPopulation(current_population,
+            correct_password)
+        most_fit_individual = sorted_population[0]
+        print('Generation:', generation, 'Most fit individual:', 
+            most_fit_individual)
+        survivors = selectFromPopulation(sorted_population, 35, 15)
+        next_population = createChildren(survivors, 4)
+        next_population = mutatePopulation(next_population, 50)
         # sorted_population = []
         # for individual in current_population:
         #     sorted_population.append((individual, fitness(correct_password, 
@@ -127,6 +135,8 @@ def main():
         #         parent_1 = survivors[i]
         #         parent_2 = survivors[i+1]
         #         current_population.append(createChild(parent_1, parent_2))
+    print('Password has been found!', 'Input password:', correct_password, 
+        'Generated password:', most_fit_individual)
 
 if __name__ == '__main__':
     main()

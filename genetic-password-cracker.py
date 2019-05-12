@@ -45,12 +45,14 @@ def generateFirstPopulation(sizePopulation, password):
     return population
 
 # which population members survive?
+## sort population by most fit to least fit
 def computePerfPopulation(population, password):
     populationPerf = {}
     for individual in population:
         populationPerf[individual] = fitness(password, individual)
     return sorted(populationPerf.items(), key = operator.itemgetter(1), reverse=True)
 
+# select survivors
 def selectFromPopulation(populationSorted, best_sample, lucky_few):
     nextGeneration = []
     for i in range(best_sample):
@@ -104,27 +106,27 @@ def main():
     most_fit_individual = ''
     generation = 1
     while(most_fit_individual != correct_password):
-        sorted_population = []
-        for individual in current_population:
-            sorted_population.append((individual, fitness(correct_password, 
-                individual)))
-        # sorted population is a tuple of (string, int) where string is the
-        # guessed word and int is the fitness score
-        sorted_population.sort(key=lambda tup: tup[1])
-        most_fit_individual = sorted_population[0][0]
-        print('Generation:', str(generation).zfill(4), 'most fit individual:',
-            most_fit_individual)
+        # sorted_population = []
+        # for individual in current_population:
+        #     sorted_population.append((individual, fitness(correct_password, 
+        #         individual)))
+        # # sorted population is a tuple of (string, int) where string is the
+        # # guessed word and int is the fitness score
+        # sorted_population.sort(key=lambda tup: tup[1])
+        # most_fit_individual = sorted_population[0][0]
+        # print('Generation:', str(generation).zfill(4), 'most fit individual:',
+        #     most_fit_individual)
 
-        generation += 1
-        # so we have 50 survivors, so each couple will produce 4 children.
-        # survivors is just the string.
-        survivors = selectFromPopulation(sorted_population, 35, 15)
-        for i in range(len(survivors) * 4):
-            first_index = 2*int(i/4)
-            parent_1 = survivors[first_index]
-            parent_2 = survivors[first_index+1]
-            current_population[i] = createChild
-            pass
+        # generation += 1
+        # # so we have 50 survivors, so each couple will produce 4 children.
+        # # survivors is just the string.
+        # survivors = selectFromPopulation(sorted_population, 35, 15)
+        # current_population = []
+        # for i in range(len(survivors), 2):
+        #     for j in range(4):
+        #         parent_1 = survivors[i]
+        #         parent_2 = survivors[i+1]
+        #         current_population.append(createChild(parent_1, parent_2))
 
 if __name__ == '__main__':
     main()

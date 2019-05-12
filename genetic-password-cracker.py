@@ -104,6 +104,7 @@ def main():
         return
     correct_password = sys.argv[1]
     population_size = int(sys.argv[2])
+    chance_of_mutation = 50
     if population_size % 4 != 0:
         print('population_size must be divisible by 4!')
         return
@@ -133,7 +134,7 @@ def main():
         next_population = createChildren(survivors, 4)
         if debug:
             print('next population after creating children:', next_population)
-        next_population = mutatePopulation(next_population, population_size/2)
+        next_population = mutatePopulation(next_population, chance_of_mutation)
         if debug:
             print('next population after mutation:', next_population)
         current_population = next_population

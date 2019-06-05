@@ -1,0 +1,6 @@
+#ignore editor config
+.idea
+.vscode
+
+#ignore temp files
+*.swp

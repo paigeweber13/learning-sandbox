@@ -163,3 +163,24 @@ texture = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallContainer/Wall6"]
 rotation = 1.5708
 shape = SubResource( 2 )
+
+[node name="Ball" parent="." instance=ExtResource( 2 )]
+position = Vector2( 488.164, -2.78949 )
+
+[node name="Ball2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 329.38, 432.725 )
+
+[node name="Ball3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 529.105, -410.115 )
+
+[node name="Ball4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1012.44, -10.6646 )
+
+[node name="Ball5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 644.946, -254.329 )
+
+[node name="Ball6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 441.226, 69.2254 )
+
+[node name="Ball7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 37.7816, -42.6207 )

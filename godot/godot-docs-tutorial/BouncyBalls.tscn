@@ -34,11 +34,12 @@ bounce = 0.5
 
 [sub_resource type="PhysicsMaterial" id=10]
 
-[node name="Main" type="Node"]
+[node name="BouncyBalls" type="Node"]
 script = ExtResource( 1 )
 Ball = ExtResource( 2 )
 
 [node name="WallContainer" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="Wall2" type="StaticBody2D" parent="WallContainer"]
 editor/display_folded = true

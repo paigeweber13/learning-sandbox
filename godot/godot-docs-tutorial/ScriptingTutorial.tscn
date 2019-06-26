@@ -24,3 +24,15 @@ margin_top = 80.3333
 margin_right = 192.0
 margin_bottom = 124.333
 text = "Press Me"
+
+[node name="Label2" type="Label" parent="Panel"]
+margin_left = 60.0
+margin_top = 155.667
+margin_right = 228.0
+margin_bottom = 213.667
+
+[node name="Label3" type="Label" parent="Panel"]
+margin_left = 75.0
+margin_top = 199.0
+margin_right = 214.0
+margin_bottom = 244.0

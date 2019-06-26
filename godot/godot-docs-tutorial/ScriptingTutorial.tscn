@@ -5,13 +5,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 300.0
+margin_bottom = 289.0
 
 [node name="Label" type="Label" parent="Panel"]
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = 101.0
+margin_top = 52.0
+margin_right = 193.0
+margin_bottom = 69.0
+text = "This is a label"
 
 [node name="Button" type="Button" parent="Panel"]
-margin_right = 12.0
-margin_bottom = 20.0
+margin_left = 103.0
+margin_top = 80.3333
+margin_right = 192.0
+margin_bottom = 124.333
+text = "Press Me"

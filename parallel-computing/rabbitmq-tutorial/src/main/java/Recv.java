@@ -3,6 +3,10 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
+/*
+ * meant to run with Send.java. Simply receives whatever is sent by Send.java and prints it to
+ * the command line
+ */
 public class Recv {
   private final static String QUEUE_NAME = "hello";
 

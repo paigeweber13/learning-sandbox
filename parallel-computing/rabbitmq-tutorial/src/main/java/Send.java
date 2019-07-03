@@ -2,6 +2,10 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
+/*
+ * meant to run with Recv.java. Simply sends "hello, world!" messages which are recieved by Recv
+ * .java
+ */
 public class Send {
   private final static String QUEUE_NAME = "hello";
 

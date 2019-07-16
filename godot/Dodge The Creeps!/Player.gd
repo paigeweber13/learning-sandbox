@@ -1,4 +1,5 @@
 extends Area2D
+signal hit
 
 export var speed: int = 400 # in pixels/second. Exporting allows us to see it in the inpsector
 var screen_size: Vector2
@@ -37,3 +38,9 @@ func _process(delta):
 	elif velocity.y != 0:
 		$AnimatedSprite.animation = "up"
 		$AnimatedSprite.flip_v = velocity.y > 0
+
+
+func _on_Player_body_entered(body):
+	hide()
+	emit_signal("hit")
+	$CollisionShape2D.set_deferred("disabled", true)

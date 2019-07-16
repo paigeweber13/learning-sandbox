@@ -5,6 +5,7 @@ var screen_size: Vector2
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	hide()
 
 func _process(delta):
 	var velocity = Vector2()
@@ -26,3 +27,13 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
+	
+	if velocity.x != 0:
+		$AnimatedSprite.animation = "right"
+		$AnimatedSprite.flip_v = false
+		# this is boolean assignment. Will set flip_h to true if velocity.x is
+		# less than 0 and false otherwise
+		$AnimatedSprite.flip_h = velocity.x < 0
+	elif velocity.y != 0:
+		$AnimatedSprite.animation = "up"
+		$AnimatedSprite.flip_v = velocity.y > 0

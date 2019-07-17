@@ -8,5 +8,7 @@ progress without having to commit to a new repository for each new thing.
     * could do it in multiple languages as an exercise:
     * functional (haskell)
     * systems (c, rust)
-    * stack (cat)
+    * stack ([cat](https://github.com/cdiggins/cat-language),
+      [joy](http://wiki.c2.com/?JoyLanguage))
+    * desiged for golf ([05AB1E](https://github.com/Adriandmen/05AB1E), [stax](https://github.com/tomtheisen/stax), [japt](https://github.com/ETHproductions/japt))
 * Math visualization: currently working on visualizing the mandelbrot set

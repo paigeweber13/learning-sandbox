@@ -10,26 +10,18 @@ from importlib import import_module
 import gym
 from gym import wrappers, logger
 
-# from examples.agents import random_agent
-
 # expects file containing agent to have name foo_bar.py and class inside that
 # file to be named FooBar
 def import_recursive(root_dir: str, package: str):
     imported_module = None
     for dir_info in os.walk(root_dir):
         if 'results' not in dir_info[0]:
-            # print()
-            # print(dir_info[0])
             for (_, name, _) in pkgutil.iter_modules([Path(dir_info[0])]):
-                # print(name)
                 if package in name:
                     name = '.' + name
                     thing_to_import = dir_info[0][2:].replace('/', '.')
-                    # print('attempting import: import_module(' + name + ', ' + thing_to_import +')')
                     imported_module = import_module(name, thing_to_import)
-                    # print('imported module:', imported_module)
                     break
-                # print(name)
 
     print('imported module:', imported_module)
     class_name = ''
@@ -41,9 +33,6 @@ def import_recursive(root_dir: str, package: str):
             # found the class! Returning...
             return getattr(imported_module, part_of_package)
 
-    # for (_, name, _) in pkgutil.iter_modules([Path(__file__).parent]):
-    # for (_, name, _) in pkgutil.iter_modules([os.path.dirname(__file__)]):
-    #     print(name)
 
 def main():
     parser = argparse.ArgumentParser(description=None)
@@ -62,7 +51,6 @@ def main():
     env = wrappers.Monitor(env, directory=outdir, force=False)
     env.seed(0)
 
-    # TODO: replace programatically
     input_class = import_recursive('.', args.agent)
     agent = input_class(env.action_space)
 

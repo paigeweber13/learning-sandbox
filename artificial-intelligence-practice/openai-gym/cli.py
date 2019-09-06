@@ -36,9 +36,9 @@ def import_recursive(root_dir: str, package: str):
 
 def main():
     parser = argparse.ArgumentParser(description=None)
-    parser.add_argument('env_id', nargs='?', default='CartPole-v0', help='Select the environment to run')
-    parser.add_argument('episode_count', nargs='?', default='100', help='Specify the number of episodes to run')
-    parser.add_argument('agent', nargs='?', default='random_agent', help='Specify the agent to use')
+    parser.add_argument('-e', '--env_id', nargs='?', default='CartPole-v0', help='Select the environment to run')
+    parser.add_argument('-c', '--episode_count', nargs='?', default='100', help='Specify the number of episodes to run')
+    parser.add_argument('-a', '--agent', nargs='?', default='random_agent', help='Specify the agent to use')
     args = parser.parse_args()
 
     logger.set_level(logger.INFO)

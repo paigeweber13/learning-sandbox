@@ -5,6 +5,10 @@
 data BookInfo = Book Int String [String]
                 deriving (Show)
 
+-- here we use the value constructor Book to create the variable myInfo
+myInfo = Book 123456789 "Unauthorized Autobiography"
+         ["Richard Bird", "Riley Weber"]
+
 data MagazineInfo = Magazine Int String [String]
                     deriving (Show)
 
@@ -23,5 +27,16 @@ data BetterReview = BetterReview BookInfo CustomerID ReviewBody
 -- type synonyms can also be used to make shorter names for a type:
 type BookRecord = (BookInfo, BookReview)
 
-myInfo = Book 123456789 "Unauthorized Autobiography"
-         ["Richard Bird", "Riley Weber"]
+-- this is an example of an algebraic data type: a data type that has more than
+-- one value constructor.
+-- these value constructors can take zero or more arguments.
+-- CashOnDelivery takes zero
+-- CreditCard takes three
+type CardHolder = String
+type CardNumber = String
+type Address = [String]
+
+data BillingInfo = CreditCard CardNumber CardHolder Address
+                 | CashOnDelivery
+                 | Invoice CustomerID
+                   deriving (Show)

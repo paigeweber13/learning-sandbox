@@ -1,0 +1,8 @@
+COMPILER=stack ghc
+GHC_ARGS=-o $(PROGRAM).bin $(PROGRAM).hs
+
+compile: COMPILER GHC_ARGS
+	$(COMPILER) $(GHC_ARGS)
+
+run: COMPILER GHC_ARGS
+	$(COMPILER) $(GHC_ARGS) && ./$(PROGRAM).bin

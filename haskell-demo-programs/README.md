@@ -1,5 +1,6 @@
 # Dependencies
- * GHC - most easily installed using the [haskell platform](https://www.haskell.org/platform/)
+ * GHC - these programs expect you to use the [haskell
+   stack](https://docs.haskellstack.org/en/stable/README/)
  * GNU Make (optional)
 
 # How to compile and run:

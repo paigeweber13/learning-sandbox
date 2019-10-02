@@ -40,3 +40,16 @@ data BillingInfo = CreditCard CardNumber CardHolder Address
                  | CashOnDelivery
                  | Invoice CustomerID
                    deriving (Show)
+
+-- from Real World Haskell:
+-- Algebraic data types also serve where we'd use an enum in C or C++, to
+-- represent a range of symbolic values. Such algebraic data types are
+-- sometimes referred to as enumeration types. Here's an example:
+data Roygbiv = Red
+             | Orange
+             | Yellow
+             | Green
+             | Blue
+             | Indigo
+             | Violet
+               deriving (Eq, Show)

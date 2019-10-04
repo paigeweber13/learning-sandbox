@@ -3,6 +3,7 @@ import pygame
 from random import shuffle
 
 values = [i for i in range(361)]
+shuffle(values)
  
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

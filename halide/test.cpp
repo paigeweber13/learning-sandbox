@@ -45,12 +45,13 @@ int main(int argc, char **argv) {
     kernel_size = 3;
   }
 
-  if (argv[1] == "brighten"){
+  if (string(argv[1]).compare("brighten") == 0){
     brighten();
-  } else if (argv[1] == "blur"){
+  } else if (string(argv[1]).compare("blur") == 0){
     blur(kernel_size, "saturn-v-2048x2048-bw.jpg");
   } else {
     cout << "invalid mode, choose \"brighten\" or \"blur\"." << endl;
+    cout << "you provided: `" << argv[1] << "`" << endl;
     return 2;
   }
 

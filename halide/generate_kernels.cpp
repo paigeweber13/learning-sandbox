@@ -16,7 +16,7 @@ Kernel generate_blur_kernel(size_t k){
   // float std_dev = float(k) * 2/3;
   float std_dev = 1.0;
 
-  int half = floor(k/2);
+  int half = ceil(k/2);
   float sum = 0.0;
   for(int x = -half; x <= half; x++){
     for(int y = -half; y <= half; y++){

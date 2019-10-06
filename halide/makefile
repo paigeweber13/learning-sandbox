@@ -14,7 +14,7 @@ compile-speedtest:
 compile-test:
 	$(CXX) test.cpp $(FILES) $(INCLUDES) $(HEADERS) $(CXX_FLAGS)
 
-speedtest: compile
+speedtest: compile-speedtest
 	LD_LIBRARY_PATH=$(PATH_TO_HALIDE)/bin bash -c './a.out'
 
 test: compile-test

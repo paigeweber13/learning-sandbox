@@ -15,6 +15,7 @@ Kernel::Kernel(size_t k){
     this->values.push_back(vector<float>(k));
   }
 
+  this->k = k;
   this->midpoint = size_t(ceil(k/2));
   this->half = midpoint - 1;
 }
@@ -32,15 +33,18 @@ float Kernel::set(int x, int y, float value){
 
 string Kernel::to_string(){
   // todo: does setprecision do anything?
-  setprecision(4);
-  cout << "Kernel:" << endl;
-  for(int x = half; x >= -half; x--){
+  // setprecision(4);
+  stringstream ss;
+  ss << "k: " << this->k << endl;
+  ss << "Midpoint: " << this->midpoint << endl;
+  ss << "Half: " << this->half << endl;
+  ss << "Kernel:" << endl;
+  for(int x = -half; x <= half; x++){
     for(int y = half; y >= -half; y--){
-      cout << get(x, y) << "  ";
+      ss << get(x, y) << "  ";
     }
-    cout << endl;
+    ss << endl;
   }
-  cout << endl;
-  cout << "Midpoint: " << this->midpoint << endl;
-  cout << "Half: " << this->half << endl;
+  ss << endl;
+  return ss.str();
 }

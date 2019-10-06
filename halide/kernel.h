@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <iostream>
 #include <math.h>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,7 @@ class Kernel {
 
   private:
     vector<vector<float>> values;
+    size_t k;
     size_t midpoint;
     int half;
 };

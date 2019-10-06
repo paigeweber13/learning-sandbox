@@ -38,7 +38,7 @@ Kernel generate_blur_kernel(size_t k){
 vector<Kernel> generate_blur_kernels(size_t max_k){
   vector<Kernel> result(max_k+1);
   for(size_t i = 3; i <= max_k; i += 2){
-    result[i] = generate_kernel(i);
+    result[i] = generate_blur_kernel(i);
   }
   return result;
 }

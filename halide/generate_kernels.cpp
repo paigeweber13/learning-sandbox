@@ -1,9 +1,4 @@
-#include <iomanip>
-#include <iostream>
-#include <math.h>
-#include <vector>
-
-#define _USE_MATH_DEFINES
+#include "generate_kernels.h"
 
 using namespace std;
 
@@ -15,50 +10,35 @@ float bivariate_gaussian(float std_dev, float x, float y){
     exp(-(pow(x, 2) + pow(y, 2))/(2*pow(std_dev,2)));
 }
 
-vector<vector<float>> generate_kernel(size_t k){
-  vector<vector<float>> result;
+Kernel generate_blur_kernel(size_t k){
+  Kernel result(k);
   // will need tuning
   // float std_dev = float(k) * 2/3;
   float std_dev = 1.0;
 
-  // to silence compiler warnings
-  int int_k = int(k);
-
-  int half = ceil(k/2);
+  int half = floor(k/2);
   float sum = 0.0;
-  for(int row = 0; row < int_k; row++){
-    result.push_back(vector<float>(k));
-    for(int column = 0; column < int_k; column++){
-      result[row][column] = bivariate_gaussian(std_dev, column-half, row-half);
-      sum += result[row][column];
+  for(int x = -half; x <= half; x++){
+    for(int y = -half; y <= half; y++){
+      result.set(x ,y, bivariate_gaussian(std_dev, x, y));
+      sum += result.get(x, y);
     }
   }
 
   // normalize!
-  for(int row = 0; row < int_k; row++){
-    for(int column = 0; column < int_k; column++){
-      result[row][column] /= sum;
+  for(int x = -half; x <= half; x++){
+    for(int y = -half; y <= half; y++){
+      result.set(x, y, result.get(x, y)/sum);
     }
   }
 
   return result;
 }
 
-vector<vector<vector<float>>> generate_kernels(size_t max_k){
-  vector<vector<vector<float>>> result(max_k+1);
+vector<Kernel> generate_blur_kernels(size_t max_k){
+  vector<Kernel> result(max_k+1);
   for(size_t i = 3; i <= max_k; i += 2){
     result[i] = generate_kernel(i);
   }
   return result;
-}
-
-void print_kernel(vector<vector<float>> kernel){
-  setprecision(4);
-  for(auto row : kernel){
-    for(auto element : row){
-      cout << element << "  ";
-    }
-    cout << endl;
-  }
-  cout << endl;
 }

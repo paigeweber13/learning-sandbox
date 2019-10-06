@@ -6,10 +6,17 @@ CXX=g++
 CXX_FLAGS=-g -lHalide `libpng-config --cflags --ldflags` -ljpeg -lpthread -ldl -std=c++11
 INCLUDES=-L $(PATH_TO_HALIDE)/bin 
 HEADERS=-I $(PATH_TO_HALIDE)/include -I $(PATH_TO_HALIDE)/tools 
-FILES=*.cpp
+FILES=generate_kernels.cpp kernel.cpp halide_blur.cpp
 
-compile:
-	$(CXX) $(FILES) $(INCLUDES) $(HEADERS) $(CXX_FLAGS)
+compile-speedtest:
+	$(CXX) speedtest.cpp $(FILES) $(INCLUDES) $(HEADERS) $(CXX_FLAGS)
 
-run: compile
+compile-test:
+	$(CXX) test.cpp $(FILES) $(INCLUDES) $(HEADERS) $(CXX_FLAGS)
+
+speedtest: compile
 	LD_LIBRARY_PATH=$(PATH_TO_HALIDE)/bin bash -c './a.out'
+
+test: compile-test
+	LD_LIBRARY_PATH=$(PATH_TO_HALIDE)/bin bash -c './a.out blur 3'
+

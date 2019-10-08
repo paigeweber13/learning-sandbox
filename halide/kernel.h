@@ -21,6 +21,5 @@ class Kernel {
   private:
     vector<vector<float>> values;
     size_t k;
-    size_t midpoint;
-    int half;
+    int midpoint;
 };

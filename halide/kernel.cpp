@@ -37,15 +37,11 @@ string Kernel::to_string(){
   // todo: does setprecision do anything?
   // setprecision(4);
   stringstream ss;
-  // cout << "k: " << k << endl;
   ss << "k: " << k << endl;
-  // cout << "midpoint: " << midpoint << endl;
   ss << "Midpoint: " << midpoint << endl;
-  // ss << "Half: " << this->half << endl;
   ss << "Kernel:" << endl;
   for(int x = -midpoint; x <= midpoint; x++){
     for(int y = midpoint; y >= -midpoint; y--){
-      // cout << "(x, y): " << x << ", " << y << endl;
       ss << get(x, y) << "  ";
     }
     ss << endl;

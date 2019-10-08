@@ -5,8 +5,8 @@ using namespace Halide::Tools;
 void blur(size_t kernel_size, std::string input_image_filename){
   std::vector<Kernel> kernels = generate_blur_kernels(9);
 
-  for(auto kernel : kernels){
-    std::cout << kernel.to_string();
+  for (size_t i = 3; i <= 9; i += 2){
+    std::cout << kernels[i].to_string();
   }
 
   /*

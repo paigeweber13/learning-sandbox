@@ -34,15 +34,13 @@ float Kernel::set(int x, int y, float value){
 }
 
 string Kernel::to_string(){
-  // todo: does setprecision do anything?
-  // setprecision(4);
   stringstream ss;
   ss << "k: " << k << endl;
   ss << "Midpoint: " << midpoint << endl;
   ss << "Kernel:" << endl;
   for(int x = -midpoint; x <= midpoint; x++){
     for(int y = midpoint; y >= -midpoint; y--){
-      ss << get(x, y) << "  ";
+      ss << fixed << setprecision(4) << get(x, y) << "  ";
     }
     ss << endl;
   }

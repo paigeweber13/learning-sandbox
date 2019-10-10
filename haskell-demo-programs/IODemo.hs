@@ -1,5 +1,7 @@
 module Main where
 
+import System.Environment
+
 hello = putStrLn "Hello, World!"
 
 area     :: Float -> Float -> Float
@@ -14,3 +16,9 @@ main = do
   input2 <- getLine
   let height = read input2 :: Float
   putStrLn ("Area is " ++ show (area width height))
+  putStrLn "Now geting input from in.txt..."
+  inputFile <- readFile "in.txt"
+  let fileLines = lines inputFile
+  putStrLn "Outputting to out.txt"
+  writeFile "out.txt" (show(area (read (fileLines!!0) :: Float) 
+    (read (fileLines!!1) :: Float)))

@@ -1,8 +1,8 @@
-COMPILER=stack ghc
+STACK_ARGS=
 GHC_ARGS=-o $(PROGRAM).bin $(PROGRAM).hs
 
-compile: COMPILER GHC_ARGS
-	$(COMPILER) $(GHC_ARGS)
+compile:
+	stack $(STACK_ARGS) ghc -- $(GHC_ARGS)
 
-run: COMPILER GHC_ARGS
-	$(COMPILER) $(GHC_ARGS) && ./$(PROGRAM).bin
+run:
+	stack $(STACK_ARGS) ghc -- $(GHC_ARGS) && ./$(PROGRAM).bin

@@ -5,6 +5,7 @@
 
 # How to compile and run:
 ## with GNU Make:
+make run PROGRAM=name-of-program-no-file-extension
 
 ## without GNU Make:
 stack ghc -- -o IODemo.bin IODemo.hs && ./IODemo.bin  

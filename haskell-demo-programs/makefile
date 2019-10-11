@@ -8,6 +8,7 @@ run:
 	stack $(STACK_ARGS) ghc -- $(GHC_ARGS) && ./$(PROGRAM).bin
 
 make run-all:
-	for prog in IODemo ControlStructuresDemo DataStructuresDemo ; do \
+	for filename in ./*.hs ; do \
+		prog="$${filename%.*}"; \
 		make run PROGRAM=$$prog; \
 	done

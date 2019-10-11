@@ -16,6 +16,18 @@ exampleGuards input
   | input == 'c' = "third letter"
   | input == 'd' = "fourth letter"
 
+exampleCases :: Int -> Int
+exampleCases x = 
+  case x of
+    -1 -> 0
+    0  -> 0
+    1  -> 0
+    2  -> 1
+    10 -> 3
+    20 -> 4
+    30 -> 5
+    _ -> exampleCases (div x 2)
+
 main = 
   do
     putStrLn "Demoing if:"
@@ -36,3 +48,13 @@ main =
     putStrLn (exampleGuards 'd')
     putStrLn ""
 
+    putStrLn "Demoing cases:"
+    putStrLn "running with input 10"
+    print (exampleCases 10)
+    putStrLn "running with input 30"
+    print (exampleCases 30)
+    putStrLn "running with input 60"
+    print (exampleCases 60)
+    putStrLn "running with input 200"
+    print (exampleCases 200)
+    putStrLn ""

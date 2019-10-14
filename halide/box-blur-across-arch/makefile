@@ -12,4 +12,4 @@ compile:
 	$(CXX) $(FILES) $(INCLUDES) $(HEADERS) $(CXX_FLAGS)
 
 test: compile
-	LD_LIBRARY_PATH=$(PATH_TO_HALIDE)/bin bash -c './a.out'
+	LD_LIBRARY_PATH=$(PATH_TO_HALIDE)/bin bash -c './a.out saturn-v.jpg'

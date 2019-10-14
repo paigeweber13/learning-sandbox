@@ -1,56 +1,58 @@
+#include "Halide.h"
+#include "halide_image_io.h"
 #include <iostream>
 #include <string>
 
-#include "Halide.h"
-#include "halide_image_io.h"
-
+using namespace Halide;
 using namespace Halide::Tools;
 using namespace std;
 
-Halide::Func halide_box_blur(Halide::Func in) {
-  // variables
-  Halide::Func blur_x, blur_y;
-  Halide::Var x, y, xi, yi;
+void blur_image(string input_filename, string output_filename){
+  // taken from halide tutorial 7, available at
+  // https://github.com/halide/Halide/blob/master/tutorial/lesson_07_multi_stage_pipelines.cpp
+  Var x("x"), y("y"), c("c");
 
-  // The algorithm
-  blur_x(x, y) = (in(x - 1, y) + in(x, y) + in(x + 1, y)) / 3;
-  blur_y(x, y) = (blur_x(x, y - 1) + blur_x(x, y) + blur_x(x, y + 1)) / 3;
+  {
+    Buffer<uint8_t> input = load_image(input_filename);
 
-  // The schedule
-  blur_y.tile(x, y, xi, yi, 256, 32).vectorize(xi, 8).parallel(y);
-  blur_x.compute_at(blur_y, x).vectorize(x, 8);
-  return blur_y;
+    Func input_16("input_16");
+    input_16(x, y, c) = cast<uint16_t>(input(x, y, c));
+
+    Func blur_x("blur_x");
+    blur_x(x, y, c) = (input_16(x-1, y, c) +
+                       2 * input_16(x, y, c) +
+                       input_16(x+1, y, c)) / 4;
+
+    Func blur_y("blur_y");
+    blur_y(x, y, c) = (blur_x(x, y-1, c) +
+                       2 * blur_x(x, y, c) +
+                       blur_x(x, y+1, c)) / 4;
+
+    Func output("output");
+    output(x, y, c) = cast<uint8_t>(blur_y(x, y, c));
+
+    Buffer<uint8_t> result(input.width()-2, input.height()-2, 3);
+    result.set_min(1, 1);
+    output.realize(result);
+
+    save_image(result, output_filename);
+  }
 }
 
-Halide::Func in(string input_filename){
-  // variables
-  Halide::Func in;
-  Halide::Var x, y, c;
-  Halide::Buffer<uint8_t> input = load_image(input_filename);
-
-  // the input algorithm
-  // to prevent overflow, upgrade to 16 bit
-  in(x, y) = Halide::cast<uint16_t>(input(x, y));
-  return in;
-}
-
-int main(int argc, char** argv){
+int main(int argc, char **argv) {
   if (argc < 2) {
     cout << "usage: " << argv[0] << " path/to/image-to-blur" << endl;
     return 1;
   }
 
-  // do blur
-  Halide::Func blur = halide_box_blur(in(argv[1]));
-  blur = Halide::cast<uint8_t>(blur);
-  Halide::Buffer<uint8_t> output = blur.realize();
+  string input_filename = argv[1];  
+  std::size_t dot_i = input_filename.find_last_of(".");
+  string ext = input_filename.substr(dot_i, input_filename.size());
+  string output_filename = input_filename.substr(0, dot_i) + "-output" + ext;
 
-  // output
-  string output_filename = argv[1];  
-  std::size_t dot_i = output_filename.find_last_of(".");
-  string ext = output_filename.substr(dot_i, output_filename.size());
-  output_filename = output_filename.substr(0, dot_i) + "-output" + ext;
-  save_image(output, output_filename);
+  blur_image(input_filename, output_filename);
+  cout << "blurred image " << input_filename << " and output to "
+       << output_filename << endl;
 
   return 0;
 }

@@ -22,18 +22,35 @@ Halide::Func halide_box_blur(Halide::Func in) {
   return blur_y;
 }
 
+Halide::Func in(string input_filename){
+  // variables
+  Halide::Func in;
+  Halide::Var x, y, c;
+  Halide::Buffer<uint8_t> input = load_image(input_filename);
+
+  // the input algorithm
+  // to prevent overflow, upgrade to 16 bit
+  in(x, y) = Halide::cast<uint16_t>(input(x, y));
+  return in;
+}
+
 int main(int argc, char** argv){
   if (argc < 2) {
     cout << "usage: " << argv[0] << " path/to/image-to-blur" << endl;
     return 1;
   }
 
-  Halide::Func blur = halide_box_blur(load_image(argv[1]));
+  // do blur
+  Halide::Func blur = halide_box_blur(in(argv[1]));
+  blur = Halide::cast<uint8_t>(blur);
   Halide::Buffer<uint8_t> output = blur.realize();
+
+  // output
   string output_filename = argv[1];  
-  std::size_t found = output_filename.find_last_of(".");
-  string ext = output_filename.substr(found, output_filename.size());
-  output_filename = output_filename.substr(0, found) + "-output" + ext;
+  std::size_t dot_i = output_filename.find_last_of(".");
+  string ext = output_filename.substr(dot_i, output_filename.size());
+  output_filename = output_filename.substr(0, dot_i) + "-output" + ext;
   save_image(output, output_filename);
+
   return 0;
 }

@@ -9,6 +9,9 @@ run:
 
 make run-all:
 	for filename in ./*.hs ; do \
+		echo "running $$filename \n" ; \
 		prog="$${filename%.*}"; \
 		make run PROGRAM=$$prog; \
+	  read -p "press enter to continue to the next demo..." a; \
+		echo "\n"; \
 	done

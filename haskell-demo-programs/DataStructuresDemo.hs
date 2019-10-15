@@ -29,4 +29,5 @@ main =
     let e = doubleList d
     putStrLn ("original list: " ++ show d)
     putStrLn ("doubled list: " ++ show e)
+    putStrLn ""
 

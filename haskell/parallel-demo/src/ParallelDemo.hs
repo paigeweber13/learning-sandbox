@@ -1,4 +1,4 @@
-module Main where
+module ParallelDemo where
 
 import System.Random
 import Control.Parallel
@@ -12,11 +12,3 @@ sumListParallel inputList = do
     putStrLn ("received " ++ show v)
   putStrLn "sending"
   putMVar m "wake up!"
-
-main = 
-  do
-    let size = 10000
-    putStrLn "generating list with random ints of size " ++ size
-    g <- newStdGen
-    print . take size $ (randomRs (0, 255) g)
-    putStrLn "summing a list in parallel"

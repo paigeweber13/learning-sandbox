@@ -14,4 +14,5 @@ make run-all:
 		make run PROGRAM=$$prog; \
 	  read -p "press enter to continue to the next demo..." a; \
 		echo "\n"; \
-	done
+	done; \
+	echo "complete!";

@@ -31,3 +31,11 @@ main =
     putStrLn ("doubled list: " ++ show e)
     putStrLn ""
 
+    putStrLn "the 'map' function provides a handy way to apply an arbitrary"
+    putStrLn "function to all elements of a list. Here we will use it to apply"
+    putStrLn "modulus 2 to each element in a list."
+    let f = [2, 13, 76, 4, 5]
+    putStrLn ("original list: " ++ show f)
+    let g = map (`rem` 2) f
+    putStrLn ("remainders: " ++ show g)
+

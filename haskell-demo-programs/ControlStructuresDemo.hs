@@ -30,6 +30,7 @@ exampleCases x =
 
 main = 
   do
+    putStrLn "In Haskell, if statements are used for a single binary condition"
     putStrLn "Demoing if:"
     putStrLn "running with input 'true'"
     putStrLn (exampleIf True)
@@ -37,6 +38,9 @@ main =
     putStrLn (exampleIf False)
     putStrLn ""
 
+    putStrLn "Guards are much more common, and they are very similar to"
+    putStrLn "if/else blocks in other languages. While Haskell does support"
+    putStrLn "if/else blocks, they are syntactically difficult and uncommon."
     putStrLn "Demoing guards:"
     putStrLn "running with input 'a'"
     putStrLn (exampleGuards 'a')
@@ -48,6 +52,8 @@ main =
     putStrLn (exampleGuards 'd')
     putStrLn ""
 
+    putStrLn "caste statements are also possible, and are used for piecewise"
+    putStrLn "functions or to take advantage of enumerability"
     putStrLn "Demoing cases:"
     putStrLn "running with input 10"
     print (exampleCases 10)

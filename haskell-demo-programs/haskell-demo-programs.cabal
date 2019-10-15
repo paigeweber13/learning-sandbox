@@ -1,0 +1,11 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 6b24a7fbf6d4c1af54b91d04797e79e7dc7c35a58175315f932b08570d7e1433
+
+name:           haskell-demo-programs
+version:        0.0.0
+build-type:     Simple

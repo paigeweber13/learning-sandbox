@@ -1,4 +1,5 @@
 # this file may be unnecessary? Not sure. Added it based on this:
 # https://docs.haskellstack.org/en/stable/GUIDE/#adding-dependencies
 dependencies:
- - parallel -any
+- Parallel
+- Random

@@ -22,6 +22,7 @@ main =
     let coordinate = ("cartesian", 2, 5)
     putStrLn ("coordinate: " ++ show coordinate)
     putStrLn "tuples are immutable, so there isn't much we can do here..."
+    putStrLn ""
 
     putStrLn "here are some operations on lists:"
     let d = [1, 0, -61, 43]
@@ -38,4 +39,5 @@ main =
     putStrLn ("original list: " ++ show f)
     let g = map (`rem` 2) f
     putStrLn ("remainders: " ++ show g)
+    putStrLn ""
 

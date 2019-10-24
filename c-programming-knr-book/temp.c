@@ -3,7 +3,7 @@
 // if you don't explicitly declare a return type, it defaults to int
 main() {
   // memory allocation on the stack happens here
-  int fahr, celsius;
+  float fahr, celsius;
   int lower, upper, step;
 
   // writing values to memmory happens here
@@ -13,8 +13,10 @@ main() {
 
   fahr = lower;
   while (fahr <= upper){
-    celsius = 5 * (fahr - 32) / 9;
-    printf("%3d %6d\n", fahr, celsius);
+    celsius = (5.0 / 9.0) * (fahr - 32);
+    // 3.0f: 3 total characters, 0 are after decimal place
+    // 6.1f: 6 total characters, 1 is after decimal place
+    printf("%3.0f %6.1f\n", fahr, celsius);
     fahr = fahr + step;
   }
 }

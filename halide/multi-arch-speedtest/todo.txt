@@ -1,0 +1,6 @@
+ - list cl devices on mamba
+ - make sure code is running on a physical GPU
+ - write up:
+   - what code does
+   - how to put it on GPU
+   - performance differences

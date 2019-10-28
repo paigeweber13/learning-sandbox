@@ -248,7 +248,8 @@ public:
 int main(int argc, char **argv) {
     // Load an input image.
     // Buffer<uint8_t> input = load_image("images/rgb.png");
-    Buffer<uint8_t> input = load_image("images/rgb.ppm");
+    // Buffer<uint8_t> input = load_image("images/rgb.ppm");
+    Buffer<uint8_t> input = load_image("images/super-large2.ppm");
 
     // Allocated an image that will store the correct output
     Buffer<uint8_t> reference_output(input.width(), input.height(), input.channels());

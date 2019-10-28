@@ -20,3 +20,13 @@ Testing performance on GPU:
 # okay, compiled with debug flags. Most definitely is running on a physical
 # GPU... maybe it's slow because of the copying? Or the JIT compiling?
 
+# used a gigabytes-large image... GPU is still slower:
+Running pipeline on CPU:
+Running pipeline on GPU:
+Target: x86-64-linux-avx-avx2-cuda-f16c-fma-sse41
+Testing GPU correctness:
+Testing performance on CPU:
+150.8216 milliseconds
+Testing performance on GPU:
+323.1150 milliseconds
+

@@ -17,4 +17,6 @@ Testing performance on CPU:
 0.4790 milliseconds
 Testing performance on GPU:
 0.8699 milliseconds
+# okay, compiled with debug flags. Most definitely is running on a physical
+# GPU... maybe it's slow because of the copying? Or the JIT compiling?
 

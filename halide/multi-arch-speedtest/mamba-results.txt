@@ -30,3 +30,14 @@ Testing performance on CPU:
 Testing performance on GPU:
 323.1150 milliseconds
 
+# returned to automatically assigning host data
+Running pipeline on CPU:
+Running pipeline on GPU:
+Target: x86-64-linux-avx-avx2-f16c-fma-opencl-sse41
+Testing GPU correctness:
+Testing performance on CPU:
+153.5216 milliseconds
+Testing performance on GPU:
+118.6604 milliseconds
+# much better
+

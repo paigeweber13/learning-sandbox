@@ -107,13 +107,13 @@ public:
 
     // Now a schedule that uses CUDA or OpenCL.
     bool schedule_for_gpu() {
-        Target target = get_host_target();
-        target.set_feature(Target::CUDA);
+        // Target target = get_host_target();
+        // target.set_feature(Target::CUDA);
 
-        // Target target = find_gpu_target();
-        // if (!target.has_gpu_feature()) {
-        //     return false;
-        // }
+        Target target = find_gpu_target();
+        if (!target.has_gpu_feature()) {
+            return false;
+        }
 
         // If you want to see all of the OpenCL, Metal, CUDA or D3D 12 API
         // calls done by the pipeline, you can also enable the Debug flag.
@@ -250,9 +250,9 @@ public:
 
 int main(int argc, char **argv) {
     // Load an input image.
-    Buffer<uint8_t> input = load_image("images/rgb.png");
+    // Buffer<uint8_t> input = load_image("images/rgb.png");
     // Buffer<uint8_t> input = load_image("images/rgb.ppm");
-    // Buffer<uint8_t> input = load_image("images/super-large2.ppm");
+    Buffer<uint8_t> input = load_image("images/super-large2.ppm");
 
     // Allocated an image that will store the correct output
     Buffer<uint8_t> reference_output(input.width(), input.height(), input.channels());
@@ -298,8 +298,8 @@ Target find_gpu_target() {
     Target target = get_host_target();
 
     // Uncomment the following lines to try CUDA instead:
-    target.set_feature(Target::CUDA);
-    return target;
+    //target.set_feature(Target::CUDA);
+    //return target;
 
 #ifdef _WIN32
     if (LoadLibraryA("d3d12.dll") != nullptr) {

@@ -107,10 +107,13 @@ public:
 
     // Now a schedule that uses CUDA or OpenCL.
     bool schedule_for_gpu() {
-        Target target = find_gpu_target();
-        if (!target.has_gpu_feature()) {
-            return false;
-        }
+        Target target = get_host_target();
+        target.set_feature(Target::CUDA);
+
+        // Target target = find_gpu_target();
+        // if (!target.has_gpu_feature()) {
+        //     return false;
+        // }
 
         // If you want to see all of the OpenCL, Metal, CUDA or D3D 12 API
         // calls done by the pipeline, you can also enable the Debug flag.

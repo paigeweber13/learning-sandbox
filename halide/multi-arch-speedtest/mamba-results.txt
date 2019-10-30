@@ -41,3 +41,14 @@ Testing performance on GPU:
 118.6604 milliseconds
 # much better
 
+# tried with 2 GPUs
+Running pipeline on CPU:
+Running pipeline on GPU:
+Target: x86-64-linux-avx-avx2-f16c-fma-opencl-sse41
+Testing GPU correctness:
+Testing performance on CPU:
+151.6621 milliseconds
+Testing performance on GPU:
+128.9052 milliseconds
+
+

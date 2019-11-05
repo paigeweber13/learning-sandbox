@@ -8,7 +8,8 @@ rope = "*"
 pylint = "*"
 
 [packages]
-gym = {extras = ["all"],version = "*"}
+# gym = {extras = ["all"],version = "*"}
+gym = {extras = ["Box2d", "Atari"],version = "*"}
 
 [requires]
 python_version = "3.7"

@@ -4,12 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-rope = "*"
-pylint = "*"
 
 [packages]
-# gym = {extras = ["all"],version = "*"}
-gym = {extras = ["Box2d", "Atari"],version = "*"}
+gym-retro = "*"
 
 [requires]
 python_version = "3.7"

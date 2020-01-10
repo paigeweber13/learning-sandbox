@@ -1,11 +1,13 @@
 // This structure cannot be printed either with `fmt::Display` or
 // with `fmt::Debug`.
-// struct UnPrintable(i32);
+#[allow(dead_code)]
+struct UnPrintable(i32);
 
 // The `derive` attribute automatically creates the implementation
 // required to make this `struct` printable with `fmt::Debug`.
-// #[derive(Debug)]
-// struct DebugPrintable(i32);
+#[allow(dead_code)]
+#[derive(Debug)]
+struct DebugPrintable(i32);
 
 // Derive the `fmt::Debug` implementation for `Structure`. `Structure`
 // is a structure which contains a single `i32`.

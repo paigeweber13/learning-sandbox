@@ -33,7 +33,9 @@ pub fn formatted_print() {
     println!("My name is {0}, {1} {0}", "Bond", "James");
 
     // Create a structure named `Structure` which contains an `i32`.
-    #[allow(dead_code)]
+    // #[allow(dead_code)]
+    // the above line about allowing dead code prevents the compiler from
+    // making a warning if we don't use this struct
     struct Structure(i32);
 
     impl fmt::Display for Structure {

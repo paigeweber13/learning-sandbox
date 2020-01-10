@@ -1,6 +1,6 @@
 use std::fmt;
 
-fn main() {
+pub fn formatted_print() {
     // In general, the `{}` will be automatically replaced with any
     // arguments. These will be stringified.
     println!("{} days", 31);

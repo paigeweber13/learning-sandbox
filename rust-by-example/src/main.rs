@@ -1,6 +1,7 @@
 mod formatted_print;
 mod debug;
 mod display;
+mod testcase_list;
 
 fn main() {
     println!("formatted print demo:");
@@ -13,5 +14,9 @@ fn main() {
 
     println!("display implementation demo:");
     display::display();
+    println!();
+
+    println!("testcase with list:");
+    testcase_list::testcase_list();
     println!();
 }

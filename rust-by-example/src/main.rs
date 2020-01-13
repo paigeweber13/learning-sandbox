@@ -2,6 +2,7 @@ mod formatted_print;
 mod debug;
 mod display;
 mod testcase_list;
+mod formatting;
 
 fn main() {
     println!("formatted print demo:");
@@ -18,5 +19,9 @@ fn main() {
 
     println!("testcase with list:");
     testcase_list::testcase_list();
+    println!();
+
+    println!("advanced formatting including hex:");
+    formatting::formatting();
     println!();
 }

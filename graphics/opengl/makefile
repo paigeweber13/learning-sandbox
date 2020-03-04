@@ -1,13 +1,9 @@
 CXX=g++
-# CXXFLAGS=-g -Wall -std=c++17 -I$(INC_DIR)
-# LDFLAGS=-L$(LIB_DIR) $(LIBS) -march=native -mtune=native -fopenmp
 CXXFLAGS=-g -Wall -std=c++17 $(INC_DIRS)
 LDFLAGS=$(LIBS) -march=native -mtune=native -fopenmp
 CXXASSEMBLYFLAGS=-S -g -fverbose-asm
 
-# PREFIX=/usr/local
-# LIB_DIR=$(PREFIX)/lib
-INC_DIRS=-I$(shell pwd)/lib
+INC_DIRS=-I./lib
 LIBS=-lGL -lglfw -lGLEW
 
 MAIN_DIR=src

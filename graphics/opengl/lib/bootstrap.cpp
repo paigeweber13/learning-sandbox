@@ -1,6 +1,6 @@
 #include "bootstrap.hpp"
 
-int bootstrap_init()
+int bootstrap_init(GLFWwindow** window)
 {
   // Initialise GLFW
   if (!glfwInit())
@@ -17,15 +17,15 @@ int bootstrap_init()
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   // Open a window and create its OpenGL context
-  window = glfwCreateWindow(1024, 768, "Tutorial 01", NULL, NULL);
-  if (window == NULL)
+  *window = glfwCreateWindow(1024, 768, "Tutorial 01", NULL, NULL);
+  if (*window == NULL)
   {
     fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.\n");
     getchar();
     glfwTerminate();
     return -1;
   }
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent(*window);
 
   // Initialize GLEW
   if (glewInit() != GLEW_OK)
@@ -37,7 +37,7 @@ int bootstrap_init()
   }
 
   // Ensure we can capture the escape key being pressed below
-  glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+  glfwSetInputMode(*window, GLFW_STICKY_KEYS, GL_TRUE);
   return 0;
 }
 

@@ -1,6 +1,6 @@
 #include "bootstrap.hpp"
 
-int bootstrap_init(GLFWwindow** window)
+int bootstrap_init(GLFWwindow** window, string windowTitle)
 {
   // Initialise GLFW
   if (!glfwInit())
@@ -17,7 +17,7 @@ int bootstrap_init(GLFWwindow** window)
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   // Open a window and create its OpenGL context
-  *window = glfwCreateWindow(1024, 768, "Tutorial 01", NULL, NULL);
+  *window = glfwCreateWindow(1024, 768, windowTitle.c_str(), NULL, NULL);
   if (*window == NULL)
   {
     fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.\n");

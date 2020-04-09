@@ -1,6 +1,7 @@
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -10,7 +11,9 @@
 
 // Include GLM
 #include <glm/glm.hpp>
-using namespace glm;
 
-int bootstrap_init(GLFWwindow** window);
+using namespace glm;
+using namespace std;
+
+int bootstrap_init(GLFWwindow** window, string windowTitle);
 int bootstrap_close();

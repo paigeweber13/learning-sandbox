@@ -3,7 +3,7 @@
 int main()
 {
    GLFWwindow *window;
-   bootstrap_init(&window);
+   bootstrap_init(&window, "Triangle");
 
    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
    // glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -18,12 +18,40 @@ int main()
    // glEnd();
    // glFlush();
 
+   GLuint VertexArrayID;
+   glGenVertexArrays(1, &VertexArrayID);
+   glBindVertexArray(VertexArrayID);
+
+   static const GLfloat g_vertex_buffer_data[] = {
+      -1.0f, -1.0f, 0.0f,
+      1.0f, -1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f, 
+   };
+   
+   GLuint vertexBuffer;
+   glGenBuffers(1, &vertexBuffer);
+   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), 
+      g_vertex_buffer_data, GL_STATIC_DRAW);
+
    do
    {
-      // Clear the screen. It's not mentioned before Tutorial 02, but it can cause flickering, so it's there nonetheless.
       glClear(GL_COLOR_BUFFER_BIT);
 
-      // Draw nothing, see you in tutorial 2 !
+      glEnableVertexAttribArray(0);
+      glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+      glVertexAttribPointer(
+         0, // ??? Magic
+         3, // size
+         GL_FLOAT, // type
+         GL_FALSE, // ???
+         0, // stride
+         (void*) 0 // ? offset maybe?
+      );
+
+      glDrawArrays(GL_TRIANGLES, 0, 3);
+
+      glDisableVertexAttribArray(0);
 
       // Swap buffers
       glfwSwapBuffers(window);

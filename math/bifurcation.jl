@@ -1,17 +1,15 @@
-# a demonstration of bifurcation using equilibrium of a simple population
-# growth function
+# a demonstration of bifurcation using the logistic map
 
-# population equation: x_n+1 = r x_n (1-x_n)
+# equation: x_n+1 = r x_n (1-x_n)
 
-# how does equilibrium population change as growth rate (r) changes?
-
-# This creates a bifurcation diagram
+# how does equilibrium change as the parameter r changes?
 
 using Test
 # using ArgParse
 
 ### utility functions:
 
+# rounds x to an aribtrary number of decimal places
 function decimal_round(x::AbstractFloat, num_decimal_places::Unsigned)::AbstractFloat
   rounding_factor = 10^num_decimal_places
   round(rounding_factor * x)/rounding_factor
@@ -19,17 +17,24 @@ end
 
 ### Population growth stuff
 
-# gives population of next year given x (current population) and r (growth
-# rate) 
-population_growth(x, r) = r*x*(1-x)
+# gives logistic map of a value x and parameter (growth rate) r
+logistic_map(x, r) = r*x*(1-x)
 
-# gives population after n years, hopefully to find an equilibrium point
-function population_growth_long_term(x, r, n)
-  final_population = x
+# gives many results of logistic map, starting with nth iteration and returning
+# the results of m iterations after the nth
+function logistic_map_series(x, r, n, m)
+  nth_x = x
   for i = 1:n
-    final_population = population_growth(final_population, r)
+    nth_x = logistic_map(nth_x, r)
   end
-  final_population
+
+  mth_x = nth_x
+  series = []
+  for i = (n+1):m
+    mth_x = logistic_map(mth_x, r)
+    series.append(mth_x)
+  end
+  series
 end
 
 ### Tests
@@ -42,10 +47,10 @@ function test_decimal_round()
 end
 
 function test_population_growth()
-  @test population_growth(.4, 2.6) == 0.624
-  @test population_growth(.3, 1.0) == 0.21
-  @test decimal_round(population_growth(.2, 1.1), convert(Unsigned, 3)) == 0.176
-  @test decimal_round(population_growth(.374, .7), convert(Unsigned, 4)) == 0.1639
+  @test logistic_map(.4, 2.6) == 0.624
+  @test logistic_map(.3, 1.0) == 0.21
+  @test decimal_round(logistic_map(.2, 1.1), convert(Unsigned, 3)) == 0.176
+  @test decimal_round(logistic_map(.374, .7), convert(Unsigned, 4)) == 0.1639
   println("all population_growth tests passed!")
 end
 

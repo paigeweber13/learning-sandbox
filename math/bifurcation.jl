@@ -37,6 +37,29 @@ function logistic_map_series(x, r, n, m)
   series
 end
 
+### Plotting things
+
+# r0: first r to use
+
+# r_inc: amount to increment r by each time 
+
+# r_final: final r (if r_final-r0 is not divisibible by r_inc then the actual
+# final r will be slightly less than r_final)
+
+function generate_points(x0, r0, n, m, r_inc, r_final)
+  x = []
+  y = []
+
+  for r = r0:r_inc:r_final
+    this_x = fill(r, (m))
+    this_y = logistic_map_series(x0, r, n, m)
+    append!(x, this_x)
+    append!(y, this_y)
+  end
+
+  x, y
+end
+
 ### Tests
 
 function test_decimal_round()
@@ -63,6 +86,7 @@ function test_logistic_map_series()
     logistic_map_series(0.77, 1.33, 100, 10), 
     convert(Unsigned, 3)
    ) == fill(0.248, (10))
+  println("all logistic_map_series tests passed!")
 end
 
 function run_tests()
@@ -72,3 +96,5 @@ function run_tests()
 end
 
 run_tests()
+# generate_points(x0, r0, n, m, r_inc, r_final)
+generate_points(0.5, 0.0, 100, 100, 0.1, 100)

@@ -4,6 +4,7 @@
 
 # how does equilibrium change as the parameter r changes?
 
+using Plots
 using Test
 # using ArgParse
 
@@ -60,6 +61,19 @@ function generate_points(x0, r0, n, m, r_inc, r_final)
   x, y
 end
 
+function plot_points(x, y, n, m)
+  # set backend
+  gr()
+
+  # create plot
+  plot(x, y,
+    seriestype = :scatter, 
+    title = "Values of recursive iterations of logistic map for various r",
+    xlabel = "r",
+    ylabel = string("next ", m, " values after first ", n, " iterations")
+  )
+end
+
 ### Tests
 
 function test_decimal_round()
@@ -96,5 +110,33 @@ function run_tests()
 end
 
 run_tests()
-# generate_points(x0, r0, n, m, r_inc, r_final)
-generate_points(0.5, 0.0, 100, 100, 0.1, 100)
+println()
+
+x0 = 0.5
+r0 = 0.0
+n = 100
+m = 100
+r_inc = 0.1
+r_final = 100
+
+println("generating points for plot with the following parameters:")
+println("x0      = ", x0)
+println("r0      = ", r0)
+println("n       = ", n)
+println("m       = ", m)
+println("r_inc   = ", r_inc)
+println("r_final = ", r_final)
+println()
+
+println("total number of poins to generate: ",
+  floor( (r_final-r0) * r_inc ) * (n + m)
+)
+println()
+
+println("generating...")
+x, y = generate_points(x0, r0, n, m, r_inc, r_final)
+
+println("points generated. Plotting...")
+p = plot_points(x, y, n, m)
+println(p)
+p

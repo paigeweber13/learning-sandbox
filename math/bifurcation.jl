@@ -138,5 +138,13 @@ x, y = generate_points(x0, r0, n, m, r_inc, r_final)
 
 println("points generated. Plotting...")
 p = plot_points(x, y, n, m)
-println(p)
-p
+display(p)
+# savefig(p, 
+#   string(
+#     "x0=", x0, ",",
+#     "r0=", r0, ",",
+#     "n=", n, ",",
+#     "m=", m, ",",
+#     "r_inc=", r_inc, ",",
+#     "r_final=", r_final, ".png")
+#   )

@@ -70,7 +70,15 @@ function plot_points(x, y, n, m)
     seriestype = :scatter, 
     title = "Values of recursive iterations of logistic map for various r",
     xlabel = "r",
-    ylabel = string("next ", m, " values after first ", n, " iterations")
+    ylabel = string("next ", m, " values after first ", n, " iterations"),
+    dpi = 1000,
+    markersize = 1,
+    markeralpha = 0.5,
+    # markeralpha = 0.1,
+    # markerstrokestyle = :dot,
+    # markerstrokecolor = :blue,
+    markerstrokewidth = 0,
+    markerfillcolor = :blue,
   )
 end
 
@@ -109,42 +117,42 @@ function run_tests()
   test_logistic_map_series();
 end
 
-run_tests()
-println()
+function example_plot()
+  x0 = 0.5
+  r0 = 0.0
+  n = 100
+  m = 100
+  r_inc = 0.01
+  r_final = 4.0 # seems like anything higher than this diverges quickly to -inf
 
-x0 = 0.5
-r0 = 0.0
-n = 100
-m = 100
-r_inc = 0.1
-r_final = 100
+  println("generating points for plot with the following parameters:")
+  println("x0      = ", x0)
+  println("r0      = ", r0)
+  println("n       = ", n)
+  println("m       = ", m)
+  println("r_inc   = ", r_inc)
+  println("r_final = ", r_final)
+  println()
 
-println("generating points for plot with the following parameters:")
-println("x0      = ", x0)
-println("r0      = ", r0)
-println("n       = ", n)
-println("m       = ", m)
-println("r_inc   = ", r_inc)
-println("r_final = ", r_final)
-println()
+  println("total number of poins to generate: ",
+    floor( (r_final-r0) * r_inc ) * (n + m)
+  )
+  println()
 
-println("total number of poins to generate: ",
-  floor( (r_final-r0) * r_inc ) * (n + m)
-)
-println()
+  println("generating...")
+  x, y = generate_points(x0, r0, n, m, r_inc, r_final)
 
-println("generating...")
-x, y = generate_points(x0, r0, n, m, r_inc, r_final)
-
-println("points generated. Plotting...")
-p = plot_points(x, y, n, m)
-display(p)
-# savefig(p, 
-#   string(
-#     "x0=", x0, ",",
-#     "r0=", r0, ",",
-#     "n=", n, ",",
-#     "m=", m, ",",
-#     "r_inc=", r_inc, ",",
-#     "r_final=", r_final, ".png")
-#   )
+  println("points generated. Plotting...")
+  p = plot_points(x, y, n, m)
+  # display(p)
+  savefig(p, 
+    string(
+      "x0=", x0, ",",
+      "r0=", r0, ",",
+      "n=", n, ",",
+      "m=", m, ",",
+      "r_inc=", r_inc, ",",
+      "r_final=", r_final, ".png")
+    )
+  # p
+end

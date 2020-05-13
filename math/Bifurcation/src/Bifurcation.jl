@@ -1,3 +1,5 @@
+module Bifurcation
+
 # a demonstration of bifurcation using the logistic map
 
 # equation: x_n+1 = r x_n (1-x_n)
@@ -161,3 +163,5 @@ function example_plot()
 
   generate_and_plot(x0, r0, n, m, r_inc, r_final)
 end
+
+end # module

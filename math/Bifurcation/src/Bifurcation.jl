@@ -7,7 +7,6 @@ module Bifurcation
 # how does equilibrium change as the parameter r changes?
 
 using Plots
-using Test
 # using ArgParse
 
 ### utility functions:
@@ -18,7 +17,7 @@ function decimal_round(x::AbstractFloat, num_decimal_places::Unsigned)::Abstract
   round(rounding_factor * x)/rounding_factor
 end
 
-### Population growth stuff
+### Logistic map stuff
 
 # gives logistic map of a value x and parameter (growth rate) r
 logistic_map(x, r) = r*x*(1-x)
@@ -116,41 +115,6 @@ function generate_and_plot(x0, r0, n, m, r_inc, r_final)
   savefig(p, filename)
   println("done.")
   # p
-end
-
-### Tests
-
-function test_decimal_round()
-  @test decimal_round(0.001422, convert(Unsigned, 3)) == 0.001
-  @test decimal_round(0.000037, convert(Unsigned, 5)) == 0.00004
-  @test decimal_round(0.895, convert(Unsigned, 0)) == 1.0
-  println("all decimal_round tests passed!")
-end
-
-function test_logistic_map()
-  @test logistic_map(.4, 2.6) == 0.624
-  @test logistic_map(.3, 1.0) == 0.21
-  @test decimal_round(logistic_map(.2, 1.1), convert(Unsigned, 3)) == 0.176
-  @test decimal_round(logistic_map(.374, .7), convert(Unsigned, 4)) == 0.1639
-  println("all logistic_map tests passed!")
-end
-
-function test_logistic_map_series()
-  s = logistic_map_series(1, 2, 100, 100)
-  @test size(s, 1) == 100
-
-  # fancy broadcast syntax
-  @test decimal_round.(
-    logistic_map_series(0.77, 1.33, 100, 10), 
-    convert(Unsigned, 3)
-   ) == fill(0.248, (10))
-  println("all logistic_map_series tests passed!")
-end
-
-function run_tests()
-  test_decimal_round();
-  test_logistic_map();
-  test_logistic_map_series();
 end
 
 function example_plot()

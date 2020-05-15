@@ -2,6 +2,8 @@ module Bifurcation
 
 using ArgParse
 
+include("BifurcationLib.jl")
+
 function main(args)
 
   s = ArgParseSettings("A demonstration of bifurcation and the resulting " *
@@ -46,15 +48,15 @@ function main(args)
   end
 
   parsed_args = parse_args(args, s)
-  println("Parsed args:")
-  for (key,val) in parsed_args
-    println("  $key  =>  $(repr(val))")
-    println("  typeof($key) => $(typeof(val))")
-    # println("converting to Float64...")
-    # val = parse(Float64, val)
-    # println("  $key  =>  $(repr(val))")
-    # println()
-  end
+
+  BifurcationLib.generate_and_plot(
+    parsed_args["x"],
+    parsed_args["r0"],
+    parsed_args["n"],
+    parsed_args["m"],
+    parsed_args["r_inc"],
+    parsed_args["r_final"],
+  )
 end
 
 main(ARGS)

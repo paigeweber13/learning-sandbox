@@ -4,26 +4,53 @@ using ArgParse
 
 function main(args)
 
-    s = ArgParseSettings("Example 2 for argparse.jl: " *  # description
-                         "flags, options help, " *
-                         "required arguments.")
+  s = ArgParseSettings("A demonstration of bifurcation and the resulting " *
+    "chaos in the equilibrium points of the logistic map. This program " *
+    "plots the equilibrium point of repeated evaluations of the logistic " *
+    "map for various r.")
 
-    @add_arg_table! s begin
-        "--opt1"
-            help = "an option"     # used by the help screen
-        "--opt2", "-o"
-            action = :store_true   # this makes it a flag
-            help = "a flag"
-        "arg1"
-            help = "an argument"
-            required = true        # makes the argument mandatory
-    end
+  @add_arg_table! s begin
+    "x"
+      arg_type = Real
+      default = 0.5
+      help = "value to be used for first iteration of the logistic map"
 
-    parsed_args = parse_args(args, s)
-    println("Parsed args:")
-    for (key,val) in parsed_args
-        println("  $key  =>  $(repr(val))")
-    end
+    "r0"
+      arg_type = Real
+      default = 0.0
+      help = "initial r: the starting point for the plot"
+
+    "n"
+      arg_type = Integer
+      default = 100
+      range_tester = (n->n>0)
+      help = "number of iterations to execute logistic map before result is " *
+        "considered to be at equilibrium"
+
+    "m"
+      arg_type = Integer
+      default = 100
+      range_tester = (m->m>0)
+      help = "number of iterations after equilibrium to plot"
+
+    "r_inc"
+      arg_type = Real
+      default = 0.01
+      help = "amount to increment r by between tests"
+
+    "r_final"
+      arg_type = Real
+      default = 4.0
+      help = "point at which we will stop testing and plotting"
+
+  end
+
+  parsed_args = parse_args(args, s)
+  println("Parsed args:")
+  for (key,val) in parsed_args
+    println("  $key  =>  $(repr(val))")
+    println("  typeof($key) => $(typeof(repr(val)))")
+  end
 end
 
 main(ARGS)

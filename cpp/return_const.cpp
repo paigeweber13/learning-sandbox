@@ -17,7 +17,7 @@ class B {
 
 class C {
 public:
-  const std::vector<B>& getVect() const { return BVect; }                           
+  const std::vector<B>& getVect() { return BVect; }                           
 
   std::vector<B> BVect;
 };

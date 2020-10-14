@@ -1,0 +1,25 @@
+tag,num_questions,description
+amazon-linux-2,26,The amazon-linux-2 tag has no usage guidance.
+android,183,"Operating system for mobile devices. For user questions, see http://android.stackexchange.com"
+arch-linux,268,"Arch Linux (or Arch, pronounced /ˈɑrtʃ/) is an independently developed, Linux-based operating system for i686 and x86-64 computers. It is composed predominantly of free and open source software, and supports community involvement."
+centos,10116,CentOS is a free (as in beer and speech) GNU/Linux distribution that is community driven and based on source code released from RedHat.
+chrome-os,10,The chrome-os tag has no usage guidance.
+clearos,30,"ClearOS (formerly named ClarkConnect) is a Linux distribution, based on CentOS and Red Hat Enterprise Linux, designed for use in small and medium enterprises as a network gateway and network server with a web-based administration interface."
+devuan,4,The devuan tag has no usage guidance.
+fedora,1065,"Fedora is a fast, stable, powerful, free RPM-based GNU/Linux operating system that is developed by the community-supported Fedora Project and sponsored by Red Hat. The Fedora Project's mission is to lead the advancement of free and open source software and content as a collaborative community."
+knoppix,9,The knoppix tag has no usage guidance.
+kubuntu,21,Kubuntu is a popular Linux distribution based on Ubuntu and the KDE desktop environment
+maemo,3,The maemo tag has no usage guidance.
+nixos,15,NixOS is a Linux distribution that uses the Nix package manager.
+nova,3,"OpenStack Nova provides a cloud computing fabric controller, supporting a wide variety of compute technologies, including libvirt (KVM, Xen, LXC, etc.), Hyper-V, VMware, XenServer, OpenStack Ironic, PowerVM."
+opensuse,332,"OpenSuSE (formerly known as SuSE Professional) is the ""free"" branch of the SuSE distribution family. OpenSuSE is not binary compatible to its bigger brother ""SLES""."
+openwrt,203,OpenWrt is a Linux distribution primarily targeted at routing on embedded devices.
+oracle-linux,40,The oracle-linux tag has no usage guidance.
+redhat,2997,"Red Hat is an open source technology solutions provider with offerings including Red Hat Enterprise Linux, open source applications, security and systems management, virtualization, Services Oriented Architecture (SOA) solutions, server and desktop operating systems, Java application software and services, and the JBoss Enterprise Middleware Suite.  Please also consider whether or not the more specific RHEL5 or 6 tags might be appropriate as well."
+scientific-linux,51,"Scientific Linux (""SL"") is an Enterprise Linux distro based on Red Hat Enterprise Linux."
+smoothwall,15,"Smoothwall is a UTM and web filter vendor which grew from, and still produces a popular open-source firewall."
+ubuntu,14646,Ubuntu Linux is a Debian derivative that aims to bring Linux mainstream. Questions on this site should generally refer to Ubuntu Server. Note that http://askubuntu.com is specifically dedicated to Ubuntu questions.
+ubuntu-server,14646,Ubuntu Linux is a Debian derivative that aims to bring Linux mainstream. Questions on this site should generally refer to Ubuntu Server. Note that http://askubuntu.com is specifically dedicated to Ubuntu questions.
+vyatta,59,Vyatta is an Open Source routing company
+vyos,21,The vyos tag has no usage guidance.
+xubuntu,21,Xubuntu is a Linux distribution based on Ubuntu and the lightweight XFCE desktop environment.

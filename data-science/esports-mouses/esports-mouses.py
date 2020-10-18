@@ -11,11 +11,11 @@ import pandas
 # page load 
 
 # cs go html sourced from https://prosettings.net/cs-go-pro-settings-gear-list/
-cs_go_html_filename = 'cs.html'
+cs_go_html_filename = 'cs.html.data'
 
 # r6 siege html sourced from 
 # https://prosettings.net/rainbow-6-pro-settings-gear-list/
-r6_siege_html_filename = 'r6.html'
+r6_siege_html_filename = 'r6.html.data'
 
 
 ### Functions

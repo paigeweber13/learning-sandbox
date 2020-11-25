@@ -16,21 +16,31 @@ HEADERS = {'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko
 
 finished = True
 start_time = time.time()
-for i in range(ITERATIONS):
-	r = requests.get(URL, headers=HEADERS)
 
-	if not r.ok:
-		print("FAILED ON ITERATION {:d}/{:d} WITH DELAY {:.2f}: Got error {:d}"
-			" with reason '{}'. Body is printed below:\n{}"
-			.format(i + 1, ITERATIONS, DELAY, r.status_code, r.reason, r.text))
-		finished = False
-		break
+try:
+    for i in range(ITERATIONS):
+        r = requests.get(URL, headers=HEADERS)
 
-	elapsed_time = time.time() - start_time
-	print("Completed iteration {:d}/{:d}. Request rate so far for this process"
-		" is {:.2f} requests per second"
-		.format(i+1, ITERATIONS, i/elapsed_time))
-	time.sleep(DELAY)
+        if not r.ok:
+            print("FAILED ON ITERATION {:d}/{:d} WITH DELAY {:.2f}: Got error {:d}"
+                " with reason '{}'. Body is printed below:\n{}"
+                .format(i + 1, ITERATIONS, DELAY, r.status_code, r.reason, r.text))
+            finished = False
+            break
+
+        elapsed_time = time.time() - start_time
+        print("Completed iteration {:d}/{:d}. Request rate so far for this process"
+            " is {:.2f} requests per second"
+            .format(i+1, ITERATIONS, i/elapsed_time))
+        time.sleep(DELAY)
+
+except:
+    elapsed_time = time.time() - start_time
+    print("Total time taken by this script: {:d}s".format(elapsed_time))
+
 
 if finished:
-	print("Completed all {:d} iterations!".format(ITERATIONS))
+    print("Completed all {:d} iterations!".format(ITERATIONS))
+
+elapsed_time = time.time() - start_time
+print("Total time taken by this script: {:.1f}s".format(elapsed_time))

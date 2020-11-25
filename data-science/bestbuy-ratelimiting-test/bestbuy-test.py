@@ -28,7 +28,7 @@ for i in range(ITERATIONS):
 
 	elapsed_time = time.time() - start_time
 	print("Completed iteration {:d}/{:d}. Request rate so far for this process"
-		" is {.2f} requests per second"
+		" is {:.2f} requests per second"
 		.format(i+1, ITERATIONS, i/elapsed_time))
 	time.sleep(DELAY)
 

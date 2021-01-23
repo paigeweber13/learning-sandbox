@@ -19,6 +19,7 @@ type Quote struct {
 func main() {
 	const URL = "https://www.goodreads.com/author/quotes/957894.Albert_Camus"
 	const maxDepth = 5
+	const shortQuoteMaxLen = 59
 
 	var numTimesFollowedNext uint32 = 0
 
@@ -60,11 +61,11 @@ func main() {
 	})
 
 	c.OnHTML("div.quoteText", func(e *colly.HTMLElement) {
-		fmt.Println("found quote:")
+		// fmt.Println("found quote:")
 		// fmt.Printf("quote text: %#v\n\n", e.Text)
 		// fmt.Printf("e.dom: %#v\n\n", e.DOM)
 		// fmt.Printf("e: %#v\n\n", e)
-		fmt.Println()
+		// fmt.Println()
 
 		fullQuote := e.Text
 
@@ -80,9 +81,18 @@ func main() {
 		fullQuote = whitespaceRegex.ReplaceAllString(fullQuote, " ")
 		fullQuote = strings.Trim(fullQuote, " ")
 		quote := authorAndWorkRegex.ReplaceAllString(fullQuote, "")
+		quote = strings.Trim(quote, `"“”`)
+		shortQuote := quote
+		if len(shortQuote) <= shortQuoteMaxLen {
+			// fmt.Println("WARN: truncated quote")
+			shortQuote = quote[:shortQuoteMaxLen]
+		} else {
+			fmt.Printf("short quote text: %v\n", shortQuote)
+		}
 
-		fmt.Printf("full quote text: %v\n", fullQuote)
-		fmt.Printf("quote text: %v\n", quote)
+		// fmt.Printf("full quote text: %v\n", fullQuote)
+		// fmt.Printf("quote text: %v\n", quote)
+		// fmt.Printf("short quote text: %v\n", shortQuote)
 
 		// var unmarshalledMap interface{}
 

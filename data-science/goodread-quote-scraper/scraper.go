@@ -2,6 +2,7 @@ package main
 
 import(
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 	"sync/atomic"
@@ -26,7 +27,23 @@ func main() {
 	quoteScriptRegex := regexp.MustCompile(`(?s)(.*)\/\/<!\[CDATA\[.*`)
 	authorAndWorkRegex := regexp.MustCompile(`(?s)\s?―.*`)
 	whitespaceRegex := regexp.MustCompile(`\s+`)
-	// quoteCleaner := strings.NewReplacer
+
+	splitURL := strings.Split(URL, ".")
+	authorName := splitURL[len(splitURL) - 1]
+
+	quoteFileName := authorName + "_quotes.txt"
+	quoteFile, err := os.OpenFile(quoteFileName, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Printf("ERROR: unable to open file '%v' for writing\n", quoteFileName)
+		return
+	}
+
+	shortQuoteFileName := authorName + "_short_quotes.txt"
+	shortQuoteFile, err := os.OpenFile(shortQuoteFileName, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Printf("ERROR: unable to open file '%v' for writing\n", shortQuoteFileName)
+		return
+	}
 
 	// Instantiate default collector
 	c := colly.NewCollector(
@@ -53,50 +70,33 @@ func main() {
 		if numTimesFollowedNext >= maxDepth { return }
 
 		link := e.Attr("href")
+
 		// Print link
 		fmt.Printf("Link found: %q -> %s\n", e.Text, link)
-		// Visit link found on page
-		// Only those links are visited which are in AllowedDomains
+
+		// Visit link
 		c.Visit(e.Request.AbsoluteURL(link))
 	})
 
 	c.OnHTML("div.quoteText", func(e *colly.HTMLElement) {
-		// fmt.Println("found quote:")
-		// fmt.Printf("quote text: %#v\n\n", e.Text)
-		// fmt.Printf("e.dom: %#v\n\n", e.DOM)
-		// fmt.Printf("e: %#v\n\n", e)
-		// fmt.Println()
-
 		fullQuote := e.Text
 
 		match := quoteScriptRegex.FindStringSubmatch(fullQuote)
-		// fmt.Printf("match object: %#v\n", match)
 		if match != nil {
 			fullQuote = match[1]
-			// fmt.Println("Regex matched")
-			// fmt.Printf("Entire match is: %#v\n", match[0])
-			// fmt.Printf("First group is: %#v\n", match[1])
 		}
 
 		fullQuote = whitespaceRegex.ReplaceAllString(fullQuote, " ")
 		fullQuote = strings.Trim(fullQuote, " ")
+
 		quote := authorAndWorkRegex.ReplaceAllString(fullQuote, "")
 		quote = strings.Trim(quote, `"“”`)
-		shortQuote := quote
-		if len(shortQuote) <= shortQuoteMaxLen {
-			// fmt.Println("WARN: truncated quote")
-			shortQuote = quote[:shortQuoteMaxLen]
-		} else {
-			fmt.Printf("short quote text: %v\n", shortQuote)
+
+		quoteFile.WriteString(fullQuote + "\n")
+		if len(quote) <= shortQuoteMaxLen {
+			shortQuoteFile.WriteString(quote + "\n")
 		}
 
-		// fmt.Printf("full quote text: %v\n", fullQuote)
-		// fmt.Printf("quote text: %v\n", quote)
-		// fmt.Printf("short quote text: %v\n", shortQuote)
-
-		// var unmarshalledMap interface{}
-
-		// err := colly.UnmarshalHTML(&quote, e)
 
 		// works for everything except quote text.... unfortunate
 		/*
@@ -114,7 +114,7 @@ func main() {
 
 	// Before making a request print "Visiting ..."
 	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL.String())
+		fmt.Println("Saving quotes on webpage", r.URL.String())
 	})
 
 	// Set error handler

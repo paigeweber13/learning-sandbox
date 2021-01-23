@@ -2,6 +2,8 @@ package main
 
 import(
 	"fmt"
+	"regexp"
+	"strings"
 	"sync/atomic"
 	"time"
 
@@ -19,6 +21,11 @@ func main() {
 	const maxDepth = 5
 
 	var numTimesFollowedNext uint32 = 0
+
+	quoteScriptRegex := regexp.MustCompile(`(?s)(.*)\/\/<!\[CDATA\[.*`)
+	authorAndWorkRegex := regexp.MustCompile(`(?s)\s?―.*`)
+	whitespaceRegex := regexp.MustCompile(`\s+`)
+	// quoteCleaner := strings.NewReplacer
 
 	// Instantiate default collector
 	c := colly.NewCollector(
@@ -54,10 +61,28 @@ func main() {
 
 	c.OnHTML("div.quoteText", func(e *colly.HTMLElement) {
 		fmt.Println("found quote:")
-		fmt.Printf("quote text: %#v\n\n", e.Text)
-		fmt.Printf("e.dom: %#v\n\n", e.DOM)
-		fmt.Printf("e: %#v\n\n", e)
+		// fmt.Printf("quote text: %#v\n\n", e.Text)
+		// fmt.Printf("e.dom: %#v\n\n", e.DOM)
+		// fmt.Printf("e: %#v\n\n", e)
 		fmt.Println()
+
+		fullQuote := e.Text
+
+		match := quoteScriptRegex.FindStringSubmatch(fullQuote)
+		// fmt.Printf("match object: %#v\n", match)
+		if match != nil {
+			fullQuote = match[1]
+			// fmt.Println("Regex matched")
+			// fmt.Printf("Entire match is: %#v\n", match[0])
+			// fmt.Printf("First group is: %#v\n", match[1])
+		}
+
+		fullQuote = whitespaceRegex.ReplaceAllString(fullQuote, " ")
+		fullQuote = strings.Trim(fullQuote, " ")
+		quote := authorAndWorkRegex.ReplaceAllString(fullQuote, "")
+
+		fmt.Printf("full quote text: %v\n", fullQuote)
+		fmt.Printf("quote text: %v\n", quote)
 
 		// var unmarshalledMap interface{}
 

@@ -18,7 +18,10 @@ type Quote struct {
 }
 
 func main() {
-	const URL = "https://www.goodreads.com/author/quotes/957894.Albert_Camus"
+	// const URL = "https://www.goodreads.com/author/quotes/957894.Albert_Camus"
+	// const URL = "https://www.goodreads.com/author/quotes/1501668.Alan_W_Watts"
+	// const URL = "https://www.goodreads.com/author/quotes/2476.Noam_Chomsky"
+	const URL = "https://www.goodreads.com/author/quotes/1938.Friedrich_Nietzsche"
 	const maxDepth = 5
 	const shortQuoteMaxLen = 59
 

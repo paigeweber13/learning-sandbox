@@ -21,7 +21,9 @@ func main() {
 	// const URL = "https://www.goodreads.com/author/quotes/957894.Albert_Camus"
 	// const URL = "https://www.goodreads.com/author/quotes/1501668.Alan_W_Watts"
 	// const URL = "https://www.goodreads.com/author/quotes/2476.Noam_Chomsky"
-	const URL = "https://www.goodreads.com/author/quotes/1938.Friedrich_Nietzsche"
+	// const URL = "https://www.goodreads.com/author/quotes/1938.Friedrich_Nietzsche"
+	const URL = "https://www.goodreads.com/work/quotes/3175590-the-art-of-racing-in-the-rain"
+  //const URL = "https://www.fake.com/not/a/valid/page"
 	const maxDepth = 5
 	const shortQuoteMaxLen = 59
 
@@ -30,18 +32,37 @@ func main() {
 	quoteScriptRegex := regexp.MustCompile(`(?s)(.*)\/\/<!\[CDATA\[.*`)
 	authorAndWorkRegex := regexp.MustCompile(`(?s)\s?―.*`)
 	whitespaceRegex := regexp.MustCompile(`\s+`)
+  isAuthorURLRegex := regexp.MustCompile(`author`)
+  isWorkURLRegex := regexp.MustCompile(`work`)
+  workNameRegex := regexp.MustCompile(`/\d+-(.*)`)
 
-	splitURL := strings.Split(URL, ".")
-	authorName := splitURL[len(splitURL) - 1]
+  var quoteFileName string
+  var shortQuoteFileName string
 
-	quoteFileName := authorName + "_quotes.txt"
+  if isAuthorURLRegex.MatchString(URL) {
+    // this is a URL for an author page
+	  splitURL := strings.Split(URL, ".")
+	  authorName := splitURL[len(splitURL) - 1]
+	  quoteFileName = authorName + "_quotes.txt"
+	  shortQuoteFileName = authorName + "_short_quotes.txt"
+  } else if isWorkURLRegex.MatchString(URL) {
+    // this is a URL for an work page
+    workName := workNameRegex.FindStringSubmatch(URL)[1]
+	  quoteFileName = workName + "_quotes.txt"
+	  shortQuoteFileName = workName + "_short_quotes.txt"
+  } else {
+    fmt.Printf("ERROR: unrecognized URL '%v'\n." +
+      "Make sure your url points to a goodreads quote page for an author or " +
+      "work.\n", URL);
+    return;
+  }
+
 	quoteFile, err := os.OpenFile(quoteFileName, os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
 		fmt.Printf("ERROR: unable to open file '%v' for writing\n", quoteFileName)
 		return
 	}
 
-	shortQuoteFileName := authorName + "_short_quotes.txt"
 	shortQuoteFile, err := os.OpenFile(shortQuoteFileName, os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
 		fmt.Printf("ERROR: unable to open file '%v' for writing\n", shortQuoteFileName)
@@ -51,7 +72,7 @@ func main() {
 	// Instantiate default collector
 	c := colly.NewCollector(
 		// not working for some reason?
-		// colly.MaxDepth(1),
+		// colly.MaxDepth(maxDepth),
 
 		// Visit only domains
 		colly.AllowedDomains("www.goodreads.com"),
@@ -62,7 +83,7 @@ func main() {
 
 	// limit to 2 threads, one request per second
 	c.Limit(&colly.LimitRule{
-		DomainGlob: "*", 
+		DomainGlob: "*",
 		Parallelism: 2,
 		RandomDelay: 1 * time.Second,
 	})
@@ -95,7 +116,7 @@ func main() {
 		quote := authorAndWorkRegex.ReplaceAllString(fullQuote, "")
 		quote = strings.Trim(quote, `"“”`)
 
-		quoteFile.WriteString(fullQuote + "\n")
+		quoteFile.WriteString(quote + "\n")
 		if len(quote) <= shortQuoteMaxLen {
 			shortQuoteFile.WriteString(quote + "\n")
 		}

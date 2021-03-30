@@ -2,6 +2,9 @@
 scripts are about as bare-bones as you can get, and the output isn't super
 useful.
 
+`log-temps.go` will not work on multi-gpu systems, but I don't have any so 
+this is fine for me.
+
 # GPU temperature logging
 nvidia-smi ran for 5hr42m
 

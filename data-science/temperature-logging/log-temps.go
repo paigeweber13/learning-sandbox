@@ -2,21 +2,15 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"regexp"
 )
 
 func main() {
-	cmdNvidiaSmi := &exec.Cmd {
-		Path: "/usr/bin/nvidia-smi",
-		Args: []string{},
-		Stdout: os.Stdout,
-		Stderr: os.Stdout,
-	}
 	regexpTemp := regexp.MustCompile(`(\d+)C`)
 
 	for {
+    cmdNvidiaSmi := exec.Command("/usr/bin/nvidia-smi")
 		output, err := cmdNvidiaSmi.Output()
 		if err != nil {
 			fmt.Printf("Error running command `%v`\n", cmdNvidiaSmi.String())
@@ -27,7 +21,7 @@ func main() {
 
 		fmt.Printf("Got matches!\n")
 		for i, match := range matches {
-			fmt.Printf("Match %v: %v\n", i, match)
+      fmt.Printf("Match %v: %v\n", i, string(match))
 		}
 	}
 }

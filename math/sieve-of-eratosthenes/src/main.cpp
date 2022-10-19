@@ -4,15 +4,16 @@
 #include "sieve-of-eratosthenes.hpp"
 #include "vector-utilities.hpp"
 
-/*
- * returns: time taken (in seconds) to check all values
- */
-double timeSieveOfEratosthenes(int maxValue) {
+void printTimingHeader() {
+  std::cout << "max_value,time_taken,values_checked_per_second" << std::endl;
+}
+
+double timeSieveOfEratosthenes(uint64_t maxValue) {
   using std::chrono::high_resolution_clock;
   using std::chrono::nanoseconds;
   using std::chrono::duration_cast;
 
-  std::vector<int> primes;
+  std::vector<uint64_t> primes;
 
   auto start = high_resolution_clock::now();
   primes = findPrimes(100);
@@ -21,18 +22,13 @@ double timeSieveOfEratosthenes(int maxValue) {
   auto time_taken_nanoseconds = duration_cast<nanoseconds>(end - start);
   double time_taken_seconds = time_taken_nanoseconds.count() / 1e9;
 
-  return time_taken_seconds;
+  std::cout << maxValue << "," << time_taken_seconds << "," 
+            << maxValue / time_taken_seconds << std::endl;
 }
 
-void printTimingHeader() {
-  std::cout << "max_value,time_taken,values_checked_per_second" << std::endl;
-}
-
-void timeSieveOfEratosthenesManySizes(int startValue, int endValue) {
+void timeSieveOfEratosthenesManySizes(uint64_t startValue, uint64_t endValue) {
   for (auto maxValue = startValue; maxValue <= endValue; maxValue *= 10) {
-    auto time_s = timeSieveOfEratosthenes(maxValue);
-    std::cout << maxValue << "," << time_s << "," << maxValue / time_s 
-              << std::endl;
+    timeSieveOfEratosthenes(maxValue);
   }
 }
 
@@ -41,7 +37,8 @@ int main(int argc, char** argv) {
   std::cout << std::endl;
 
   printTimingHeader();
-  timeSieveOfEratosthenesManySizes(1000, 100000000);
+  timeSieveOfEratosthenesManySizes(1000, 1000000000000000000ull);
+  timeSieveOfEratosthenes(UINT64_MAX);
 
   return 0;
 }

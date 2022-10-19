@@ -1,6 +1,9 @@
-# My New Project
+# Sieve of Eratosthenes
 
-A summary will go here.
+Implements the sieve of Eratosthenes to find prime numbers
+
+# TODO:
+- add boost::multiprecision to use very large integers (cpp_int)
 
 # Prerequisistes
 
